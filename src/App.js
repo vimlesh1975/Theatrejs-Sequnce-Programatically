@@ -1,6 +1,6 @@
 import studio from '@theatre/studio'
 import { getProject, types } from '@theatre/core'
-import * as d from '@theatre/dataverse'
+import {setPrimitivePropAsSequenced, setPrimitivePropAsStatic} from './code'
 studio.initialize()
 
 const project = getProject('HTML Animation Tutorial')
@@ -11,29 +11,6 @@ const obj = sheet.object('Heading 1', {
 })
 
 function App() {
-
-  const setPrimitivePropAsSequenced = (object, propsPrimitive) => {
-    const studioPrivate = window.__TheatreJS_StudioBundle._studio
-    studioPrivate.transaction(({ stateEditors }) => {
-      const pathToProp = d.getPointerParts(propsPrimitive).path
-      const propAddress = { ...object.address, pathToProp }
-      stateEditors.coreByProject.historic.sheetsById.sequence.setPrimitivePropAsSequenced(
-        propAddress
-      )
-    })
-  }
-
-  const setPrimitivePropAsStatic = (object, propsPrimitive) => {
-    const studioPrivate = window.__TheatreJS_StudioBundle._studio
-    studioPrivate.transaction(({ stateEditors }) => {
-      const pathToProp = d.getPointerParts(propsPrimitive).path
-      const propAddress = { ...object.address, pathToProp }
-      stateEditors.coreByProject.historic.sheetsById.sequence.setPrimitivePropAsStatic(
-        propAddress
-      )
-    })
-  }
-
   return (
     <div style={{ textAlign: 'center' }}>
       <button onClick={() => setPrimitivePropAsSequenced(obj, obj.props.y)}> Sequence Y</button>
