@@ -12,23 +12,22 @@ const obj = sheet.object('Heading 1', {
 
 function App() {
 
-  const setPrimitivePropAsSequenced = (obj, propsPrimitive) => {
+  const setPrimitivePropAsSequenced = (object, propsPrimitive) => {
     const studioPrivate = window.__TheatreJS_StudioBundle._studio
     studioPrivate.transaction(({ stateEditors }) => {
       const pathToProp = d.getPointerParts(propsPrimitive).path
-      const propAddress = { ...obj.address, pathToProp }
-      console.log(propAddress)
+      const propAddress = { ...object.address, pathToProp }
       stateEditors.coreByProject.historic.sheetsById.sequence.setPrimitivePropAsSequenced(
         propAddress
       )
     })
   }
 
-  const setPrimitivePropAsStatic = (obj, propsPrimitive) => {
+  const setPrimitivePropAsStatic = (object, propsPrimitive) => {
     const studioPrivate = window.__TheatreJS_StudioBundle._studio
     studioPrivate.transaction(({ stateEditors }) => {
       const pathToProp = d.getPointerParts(propsPrimitive).path
-      const propAddress = { ...obj.address, pathToProp }
+      const propAddress = { ...object.address, pathToProp }
       stateEditors.coreByProject.historic.sheetsById.sequence.setPrimitivePropAsStatic(
         propAddress
       )
@@ -39,8 +38,8 @@ function App() {
     <div style={{ textAlign: 'center' }}>
       <button onClick={() => setPrimitivePropAsSequenced(obj, obj.props.y)}> Sequence Y</button>
       <button onClick={() => setPrimitivePropAsSequenced(obj, obj.props.opacity)}> Sequence Opacity</button>
-      <button onClick={() => setPrimitivePropAsStatic(obj, obj.props.opacity)}>Sataic opacity</button>
-      <button onClick={() => setPrimitivePropAsStatic(obj, obj.props.y)}>Sataic Y</button>
+      <button onClick={() => setPrimitivePropAsStatic(obj, obj.props.opacity)}>Static opacity</button>
+      <button onClick={() => setPrimitivePropAsStatic(obj, obj.props.y)}>Static Y</button>
     </div>
   );
 }
